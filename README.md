@@ -1,11 +1,17 @@
 LittleBasic
 ===========
+> Forked from https://github.com/mateiw/littlebasic
 
-A toy BASIC-like language implemented using [Antlr4](http://www.antlr.org/) and Java.
+A boilerplate to implement programming language interpreter using [ANTLR 4](http://www.antlr.org/) and Java.
+This boilerplate uses a toy programming language called `Lang`.
 
-It's just an excuse to play with Antlr and language creation. It's small and simple but it has 
-most constructs used in structured programming.
-
+### Repository Structure
+- `main`
+  - Grammar definition
+  - Interpreter implementation
+- `test`
+  - Test implementation
+  - Test cases written in `Lang` language.
 ### Syntax
 
 Check the grammar file `src/main/antlr4/basic/LittleBasic.g4` and the test files `src/test/resources/*.bas`
@@ -49,15 +55,3 @@ In the console:
 ```
 java -jar LittleBasic.jar /path/to/MyAwesomeProgram.bas
 ```
-
-### Limitations/TODO
-
-* Limited data types - only integers and strings
-* No functions and subroutines
-* Variables have global scope only
-* No file I/O
-* Only a few built-in functions
-* No support for drawing
-* No interactive mode 
-
-**Enjoy!**
