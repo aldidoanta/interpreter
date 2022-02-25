@@ -193,25 +193,6 @@ public class LittleBasicVisitor extends LittleBasicBaseVisitor<Value> {
     }
 
     @Override
-    public Value visitIfstmt(LittleBasicParser.IfstmtContext ctx) {
-        Value condition = visit(ctx.expression());
-        if (condition.isTrue()) {
-            return visit(ctx.block());
-        } else {
-            for(LittleBasicParser.ElifstmtContext elifCtx : ctx.elifstmt()) {
-                condition = visit(elifCtx.expression());
-                if (condition.isTrue()) {
-                    return visit(elifCtx.block());
-                }
-            }
-            if (ctx.elsestmt() != null) {
-                return visit(ctx.elsestmt().block());
-            }
-        }
-        return condition;
-    }
-
-    @Override
     public Value visitPrintstmt(LittleBasicParser.PrintstmtContext ctx) {
         Value value = visit(ctx.expression());
         if (value.isNumber()) {
@@ -235,68 +216,4 @@ public class LittleBasicVisitor extends LittleBasicBaseVisitor<Value> {
             throw new RuntimeException(e); // TODO
         }
     }
-
-    @Override
-    public Value visitForstmt(LittleBasicParser.ForstmtContext ctx) {
-        String varname = ctx.vardecl().varname().ID().getText();
-        Value start = visit(ctx.expression(0));
-        Value end = visit(ctx.expression(1));
-        Value step = ctx.expression(2) != null ? visit(ctx.expression(2)) : new Value(1);
-        for (long i = start.internalNumber(); i <= end.internalNumber(); i = i + step.internalNumber()) {
-            memory.assign(varname, new Value(i));
-            try {
-                visit(ctx.block());
-            } catch (ContinueLoopException e) {
-                continue;
-            } catch (ExitLoopException e) {
-                break;
-            }
-        }
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitWhilestmt(LittleBasicParser.WhilestmtContext ctx) {
-        Value cond = visit(ctx.expression());
-        while (cond.isTrue()) {
-            try {
-                visit(ctx.block());
-            } catch (ContinueLoopException e) {
-                continue;
-            } catch (ExitLoopException e) {
-                break;
-            } finally {
-                cond = visit(ctx.expression());
-            }
-        }
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitRepeatstmt(LittleBasicParser.RepeatstmtContext ctx) {
-        Value cond;
-        do {
-            try {
-                visit(ctx.block());
-            } catch (ContinueLoopException e) {
-                continue;
-            } catch (ExitLoopException e) {
-                break;
-            } finally {
-                cond = visit(ctx.expression());
-            }
-        } while (cond.isFalse());
-        return new Value(0);
-    }
-
-    @Override
-    public Value visitContinuestmt(LittleBasicParser.ContinuestmtContext ctx) {
-        throw new ContinueLoopException();
-    }
-
-    @Override
-    public Value visitExitstmt(LittleBasicParser.ExitstmtContext ctx) {
-        throw new ExitLoopException();
-    }
-
 }

@@ -7,12 +7,6 @@ statement
     : letstmt
     | printstmt
     | inputstmt
-    | ifstmt
-    | forstmt
-    | whilestmt
-    | repeatstmt
-    | continuestmt
-    | exitstmt
     | COMMENT;
 
 block
@@ -41,37 +35,3 @@ printstmt
 inputstmt
     : INPUT string vardecl
     ;
-
-ifstmt
-    : IF expression NEWLINE* THEN NEWLINE+ block elifstmt* elsestmt? END
-    ;
-
-elifstmt
-    : ELSE IF expression NEWLINE* THEN NEWLINE+ block
-    ;
-
-elsestmt
-    : ELSE NEWLINE+ block
-    ;
-
-forstmt
-    : FOR vardecl EQ expression TO expression (STEP expression)? NEWLINE+ block NEXT
-    ;
-
-whilestmt
-    : WHILE expression NEWLINE+ block END
-    ;
-
-repeatstmt
-    : REPEAT NEWLINE+ block NEWLINE* UNTIL expression
-    ;
-
-continuestmt
-    : CONTINUE
-    ;
-
-exitstmt
-    : EXIT
-    ;
-
-
