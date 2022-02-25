@@ -69,62 +69,6 @@ public class LittleBasicTest {
     }
 
     @Test
-    public void testForSimple() {
-        test("for_simple.bas", (result) -> {
-            assertEquals("1\n2\n3\n4\n5\n", result.output);
-        });
-    }
-
-    @Test
-    public void testForContinue() {
-        test("for_continue.bas", (result) -> {
-            assertEquals("3\n4\n5\n", result.output);
-        });
-    }
-
-    @Test
-    public void testForExit() {
-        test("for_exit.bas", (result) -> {
-            assertEquals("1\n2\n3\n", result.output);
-        });
-    }
-
-    @Test
-    public void testIfSimpleTrue() {
-        test("if_simple_true.bas", (result) -> {
-            assertEquals("one\ntwo\n", result.output);
-        });
-    }
-
-    @Test
-    public void testIfSimpleFalse() {
-        test("if_simple_false.bas", (result) -> {
-            assertEquals("three\n", result.output);
-        });
-    }
-
-    @Test
-    public void testIfElse() {
-        test("if_else.bas", (result) -> {
-            assertEquals("true\nfalse\n", result.output);
-        });
-    }
-
-    @Test
-    public void testWhile() {
-        test("while.bas", (result) -> {
-            assertEquals("1\n2\n3\n4\n", result.output);
-        });
-    }
-
-    @Test
-    public void testRepeat() {
-        test("repeat.bas", (result) -> {
-            assertEquals("1\n2\n3\n4\n", result.output);
-        });
-    }
-
-    @Test
     public void testSynatxErr() {
         test("syntax_err.bas", (result) -> {
             assertEquals("Error at [1, 4]: Syntax error",
@@ -167,12 +111,4 @@ public class LittleBasicTest {
             assertEquals("Name:  Hello Little Basic\n", result.output);
         });
     }
-
-    @Test
-    public void testGcdEuclid() {
-        test("gcd_euclid.bas", "9\n12\n", (result) -> {
-            assertEquals("A= B= GCD=3\n", result.output);
-        });
-    }
-
 }
